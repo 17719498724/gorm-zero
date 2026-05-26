@@ -4,7 +4,7 @@ import (
 	"context"
 	"errors"
 	"fmt"
-	"github.com/SpectatorNan/gorm-zero/gormc/utils"
+	"github.com/polpo-space/gorm-zero/gormc/utils"
 	"github.com/zeromicro/go-zero/core/logx"
 	gormLogger "gorm.io/gorm/logger"
 	"time"

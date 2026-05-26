@@ -6,47 +6,22 @@ A go-zero gorm extension. If you use go-zero, and you want to use GORM. You can 
 
 - Add the dependency
 ```shell
-go get github.com/SpectatorNan/gorm-zero
+go get github.com/polpo-space/gorm-zero
 ```
 - Replace `template/model` in your project with `gorm-zero/template/v1/model`
 - Generate
 ```shell
-goctl model mysql -src={patterns} -dir={dir} -cache --home ./template
+goctl model postgres -src={patterns} -dir={dir} -cache --home ./template
 ```
 
 ## Basic Usage
-Currently we support two databases: MySQL and PostgreSQL. For example:
-
-### MySQL
-* Config
-```go
-import (
-    "github.com/SpectatorNan/gorm-zero/gormc/config/mysql"
-)
-type Config struct {
-    Mysql mysql.Mysql
-    ...
-}
-```
-* Initialization
-```go
-import (
-    "github.com/SpectatorNan/gorm-zero/gormc/config/mysql"
-)
-func NewServiceContext(c config.Config) *ServiceContext {
-    db, err := mysql.Connect(c.Mysql)
-    if err != nil {
-        log.Fatal(err)
-    }
-    ...
-}
-```
+Currently we support PostgreSQL. For example:
 
 ### PostgreSQL
 * Config
 ```go
 import (
-    "github.com/SpectatorNan/gorm-zero/gormc/config/pg"
+    "github.com/polpo-space/gorm-zero/gormc/config/pg"
 )
 type Config struct {
     PgSql pg.PgSql
@@ -57,7 +32,7 @@ type Config struct {
 * Initialization
 ```go
 import (
-    "github.com/SpectatorNan/gorm-zero/gormc/config/pg"
+    "github.com/polpo-space/gorm-zero/gormc/config/pg"
 )
 func NewServiceContext(c config.Config) *ServiceContext {
     db, err := pg.Connect(c.PgSql)
@@ -106,4 +81,4 @@ func NewServiceContext(c config.Config) *ServiceContext {
 
 
 ## Examples
-- go zero model example link: [gorm-zero-example](https://github.com/SpectatorNan/gorm-zero-example)
+- go zero model example link: [gorm-zero-example](https://github.com/polpo-space/gorm-zero-example)

@@ -2,15 +2,15 @@ package gormc
 
 import (
 	"context"
-	"github.com/zeromicro/go-zero/core/logx"
-	"github.com/zeromicro/go-zero/core/mathx"
-	"github.com/zeromicro/go-zero/core/stat"
-	"github.com/zeromicro/go-zero/core/stores/cache"
-	"github.com/zeromicro/go-zero/core/stores/redis"
-	"gorm.io/driver/mysql"
-	"gorm.io/gorm"
 	"testing"
 	"time"
+
+	"github.com/zeromicro/go-zero/core/logx"
+	"github.com/zeromicro/go-zero/core/mathx"
+	"github.com/zeromicro/go-zero/core/stores/cache"
+	"github.com/zeromicro/go-zero/core/stores/redis"
+	"gorm.io/driver/sqlite"
+	"gorm.io/gorm"
 )
 
 func init() {
@@ -18,36 +18,19 @@ func init() {
 	stat.SetReporter(nil)
 }
 
-type mysqlcfg struct {
-	Path         string // 服务器地址
-	Port         string `json:",default=3306"`                                               // 端口
-	Config       string `json:",default=charset%3Dutf8mb4%26parseTime%3Dtrue%26loc%3DLocal"` // 高级配置
-	Dbname       string // 数据库名
-	Username     string // 数据库用户名
-	Password     string // 数据库密码
-	MaxIdleConns int    `json:",default=10"` // 空闲中的最大连接数
-	MaxOpenConns int    `json:",default=10"` // 打开到数据库的最大连接数
-	LogMode      string `json:",default="`   // 是否开启Gorm全局日志
-	LogZap       bool   // 是否通过zap写入日志文件
+type sqlitecfg struct {
+	DSN string // SQLite DSN
 }
 
-func (m *mysqlcfg) Dsn() string {
-	return m.Username + ":" + m.Password + "@tcp(" + m.Path + ":" + m.Port + ")/" + m.Dbname + "?" + m.Config
+func (m *sqlitecfg) Dsn() string {
+	return m.DSN
 }
 func TestGormc_QueryWithExpire(t *testing.T) {
 
-	cfg := mysqlcfg{
-		Path:     "localhost",
-		Port:     "3306",
-		Config:   "charset%3Dutf8mb4%26parseTime%3Dtrue%26loc%3DLocal",
-		Dbname:   "gormzero",
-		Username: "root",
-		Password: "root",
+	cfg := sqlitecfg{
+		DSN: "file::memory:?cache=shared",
 	}
-	mcg := mysql.Config{
-		DSN: cfg.Dsn(),
-	}
-	db, err := gorm.Open(mysql.New(mcg))
+	db, err := gorm.Open(sqlite.Open(cfg.Dsn()), &gorm.Config{})
 	if err != nil {
 		t.Error(err)
 		return

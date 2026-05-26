@@ -3,7 +3,7 @@ package pagex
 import (
 	"context"
 
-	"github.com/SpectatorNan/gorm-zero/gormc"
+	"github.com/polpo-space/gorm-zero/gormc"
 	"gorm.io/gorm"
 )
 

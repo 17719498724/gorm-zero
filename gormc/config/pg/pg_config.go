@@ -3,8 +3,8 @@ package pg
 import (
 	"errors"
 	"fmt"
-	"github.com/SpectatorNan/gorm-zero/gormc/config"
-	"github.com/SpectatorNan/gorm-zero/gormc/plugins"
+	"github.com/polpo-space/gorm-zero/gormc/config"
+	"github.com/polpo-space/gorm-zero/gormc/plugins"
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
 	"gorm.io/gorm/logger"
